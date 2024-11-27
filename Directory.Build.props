@@ -1,0 +1,23 @@
+<Project>
+	<Import Project="ArchiSteamFarm/Directory.Build.props" />
+
+	<PropertyGroup>
+		<PluginName>TradeLinkGetter</PluginName>
+		<Version>0.0.1</Version> <!-- x-release-please-version -->
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ApplicationIcon />
+		<Authors>dm1tz</Authors>
+		<Company>$(Authors)</Company>
+		<Copyright>Copyright © $([System.DateTime]::UtcNow.Year) $(Company)</Copyright>
+		<Description>ASF plugin to get account's trade link.</Description>
+		<PackageIcon />
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/$(Company)/$(PluginName)</PackageProjectUrl>
+		<PackageReleaseNotes>$(PackageProjectUrl)/releases</PackageReleaseNotes>
+		<PublicSign>false</PublicSign>
+		<RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
+		<SignAssembly>false</SignAssembly>
+	</PropertyGroup>
+</Project>

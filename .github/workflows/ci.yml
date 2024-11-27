@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+  DOTNET_SDK_VERSION: 8.0
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Validate title
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+        with:
+          show-progress: false
+          submodules: recursive
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
+
+      - name: Verify .NET Core
+        run: dotnet --info
+
+      - name: Build plugin
+        run: dotnet build -c Release -p:ContinuousIntegrationBuild=true -p:UseAppHost=false
+
+  publish:
+    runs-on: ubuntu-latest
+    if: "github.actor == 'release-please[bot]'"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+        with:
+          show-progress: false
+          submodules: recursive
+
+      - name: Parse plugin name from Directory.Build.props
+        id: plugin-name
+        uses: mavrosxristoforos/get-xml-info@2.0
+        with:
+          xml-file: 'Directory.Build.props'
+          xpath: '//PluginName'
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4.1.0
+        with:
+          dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
+
+      - name: Verify .NET Core
+        run: dotnet --info
+
+      - name: Publish plugin
+        env:
+          PLUGIN_NAME: ${{ steps.plugin-name.outputs.info }}
+        run: dotnet publish "$PLUGIN_NAME" -o "out/${PLUGIN_NAME}" -c Release -p:ContinuousIntegrationBuild=true -p:TargetLatestRuntimePatch=false -p:UseAppHost=false --nologo
+
+      - name: Upload plugin artifact
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: ${{ steps.plugin-name.outputs.info }}
+          path: |
+            out/${{ steps.plugin-name.outputs.info }}

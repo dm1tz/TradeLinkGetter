@@ -1,0 +1,12 @@
+{
+  "release-type": "simple",
+  "sequential-calls": true,
+  "pull-request-title-pattern": "chore: release ${version}",
+  "packages": {
+    ".": {
+      "extra-files": [
+        "Directory.Build.props"
+      ]
+    }
+  }
+}

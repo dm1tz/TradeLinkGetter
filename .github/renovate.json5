@@ -1,0 +1,13 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": [
+		"config:base",
+		":assignee(dm1tz)",
+		":disableDependencyDashboard",
+		":label(dependencies)",
+		"schedule:weekly"
+	],
+	"git-submodules": {
+		"enabled": true
+	}
+}

@@ -1,0 +1,42 @@
+name: CD
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+        with:
+          show-progress: false
+          submodules: recursive
+
+      - name: Parse plugin name from Directory.Build.props
+        id: plugin-name
+        uses: mavrosxristoforos/get-xml-info@2.0
+        with:
+          xml-file: 'Directory.Build.props'
+          xpath: '//PluginName'
+
+      - name: Download latest artifact
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: ci.yml
+          name: ${{ steps.plugin-name.outputs.info }}
+          check_artifacts: true
+          skip_unpack: true
+
+      - name: Attach artifact to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          overwrite: true
+          file: ${{ steps.plugin-name.outputs.info }}.zip
