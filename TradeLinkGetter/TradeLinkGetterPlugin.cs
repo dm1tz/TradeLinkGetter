@@ -16,10 +16,11 @@ using static ArchiSteamFarm.Steam.Integration.ArchiWebHandler;
 namespace TradeLinkGetter;
 
 [Export(typeof(IPlugin))]
-internal sealed class TradeLinkGetterPlugin : IBotCommand2 {
+internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates {
 	private static Uri TradeOfferURL = new(SteamCommunityURL, "/tradeoffer/new");
 
 	public string Name => nameof(TradeLinkGetterPlugin);
+	public string RepositoryName => "dm1tz/TradeLinkGetter";
 	public Version Version => typeof(TradeLinkGetterPlugin).Assembly.GetName().Version ?? throw new InvalidOperationException(nameof(Version));
 
 	public Task OnLoaded() => Task.CompletedTask;
