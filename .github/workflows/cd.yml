@@ -27,7 +27,7 @@ jobs:
           xpath: '//PluginName'
 
       - name: Download latest artifact
-        uses: dawidd6/action-download-artifact@v8
+        uses: dawidd6/action-download-artifact@v9
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: ci.yml
