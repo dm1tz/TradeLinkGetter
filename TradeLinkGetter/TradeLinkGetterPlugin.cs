@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using PluginLocale = TradeLinkGetter.Localization;
 using static ArchiSteamFarm.Steam.Integration.ArchiWebHandler;
 
 namespace TradeLinkGetter;
@@ -67,7 +68,7 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 
 		uint partnerID = new SteamID(bot.SteamID).AccountID;
 
-		return bot.Commands.FormatBotResponse($"{TradeOfferURL}/?partner={partnerID}&token={tradeToken}");
+		return bot.Commands.FormatBotResponse(PluginLocale.Strings.FormatBotTradeLink($"{TradeOfferURL}/?partner={partnerID}&token={tradeToken}"));
 	}
 
 	private static async Task<string?> ResponseTradeLink(EAccess access, string botNames, ulong steamID = 0) {
