@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/dm1tz/TradeLinkGetter/compare/v0.2.0...v0.3.0) (2025-04-29)
+
+
+### Features
+
+* add localization ([#21](https://github.com/dm1tz/TradeLinkGetter/issues/21)) ([508809c](https://github.com/dm1tz/TradeLinkGetter/commit/508809c30371f517543a5be359b3837c0db07e55))
+
 ## [0.2.0](https://github.com/dm1tz/TradeLinkGetter/compare/v0.1.0...v0.2.0) (2024-12-04)
 
 
