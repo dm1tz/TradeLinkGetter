@@ -86,7 +86,7 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 
 		IList<string?> results = await Utilities.InParallel(bots.Select(bot => Task.Run(() => ResponseTradeLink(bot, Commands.GetProxyAccess(bot, access, steamID))))).ConfigureAwait(false);
 
-		List<string> responses = [..results.Where(static result => !string.IsNullOrEmpty(result))!];
+		List<string> responses = [..results.Where(static result => !string.IsNullOrEmpty(result)).Select(static result => result!)];
 
 		return responses.Count > 0 ? string.Join(Environment.NewLine, responses) : null;
 	}
