@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           show-progress: false
           submodules: recursive
 
       - name: Parse plugin name from Directory.Build.props
         id: plugin-name
-        uses: mavrosxristoforos/get-xml-info@2.0
+        uses: mavrosxristoforos/get-xml-info@afaa5058ead44cfaff92c6a861b46dd7a8929f60 # 2.0
         with:
           xml-file: 'Directory.Build.props'
           xpath: '//PluginName'
@@ -34,7 +34,7 @@ jobs:
           skip_unpack: true
 
       - name: Attach artifact to release assets
-        uses: svenstaro/upload-release-action@v2
+        uses: svenstaro/upload-release-action@6b7fa9f267e90b50a19fef07b3596790bb941741 # v2
         with:
           overwrite: true
           file: ${{ steps.plugin-name.outputs.info }}.zip

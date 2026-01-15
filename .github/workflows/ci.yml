@@ -18,13 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           show-progress: false
           submodules: recursive
 
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@baa11fbfe1d6520db94683bd5c7a3818018e4309 # v5
         with:
           dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
 
@@ -39,14 +39,14 @@ jobs:
     if: startsWith(github.head_ref, 'release-please--')
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           show-progress: false
           submodules: recursive
 
       - name: Parse plugin name from Directory.Build.props
         id: plugin-name
-        uses: mavrosxristoforos/get-xml-info@2.0
+        uses: mavrosxristoforos/get-xml-info@afaa5058ead44cfaff92c6a861b46dd7a8929f60 # 2.0
         with:
           xml-file: 'Directory.Build.props'
           xpath: '//PluginName'
