@@ -65,7 +65,7 @@ jobs:
         run: dotnet publish "$PLUGIN_NAME" -o "out/${PLUGIN_NAME}" -c Release -p:ContinuousIntegrationBuild=true -p:TargetLatestRuntimePatch=false -p:UseAppHost=false --nologo
 
       - name: Upload release artifact
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: ${{ steps.plugin-name.outputs.info }}
           path: |
