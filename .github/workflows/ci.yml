@@ -1,5 +1,4 @@
 name: CI
-
 on:
   pull_request:
     branches:
@@ -19,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@v5.0.0
         with:
           show-progress: false
           submodules: recursive
@@ -37,10 +36,10 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    if: "github.actor == 'release-please[bot]'"
+    if: startsWith(github.head_ref, 'release-please--')
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@v5.0.0
         with:
           show-progress: false
           submodules: recursive
@@ -65,8 +64,8 @@ jobs:
           PLUGIN_NAME: ${{ steps.plugin-name.outputs.info }}
         run: dotnet publish "$PLUGIN_NAME" -o "out/${PLUGIN_NAME}" -c Release -p:ContinuousIntegrationBuild=true -p:TargetLatestRuntimePatch=false -p:UseAppHost=false --nologo
 
-      - name: Upload plugin artifact
-        uses: actions/upload-artifact@v6.0.0
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ steps.plugin-name.outputs.info }}
           path: |
