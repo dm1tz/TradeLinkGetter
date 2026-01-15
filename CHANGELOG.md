@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.0](https://github.com/dm1tz/TradeLinkGetter/compare/v0.3.0...v1.0.0) (2026-01-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **ci:** .NET 10
+
+### Features
+
+* bump against .NET 10 ([2deeb96](https://github.com/dm1tz/TradeLinkGetter/commit/2deeb96bf68ca905d69c1e82073d891b85bd7572))
+
+
+### Miscellaneous Chores
+
+* **ci:** .NET 10 ([64c258b](https://github.com/dm1tz/TradeLinkGetter/commit/64c258b094a90ca38e0530dc0e2d047015f13e39))
+
 ## [0.3.0](https://github.com/dm1tz/TradeLinkGetter/compare/v0.2.0...v0.3.0) (2025-04-29)
 
 
