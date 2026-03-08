@@ -18,7 +18,7 @@ namespace TradeLinkGetter;
 
 [Export(typeof(IPlugin))]
 internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates {
-	private static Uri TradeOfferURL = new(SteamCommunityURL, "/tradeoffer/new");
+	private static readonly Uri TradeOfferURL = new(SteamCommunityURL, "/tradeoffer/new");
 
 	public string Name => nameof(TradeLinkGetterPlugin);
 	public string RepositoryName => "dm1tz/TradeLinkGetter";
@@ -84,9 +84,9 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 			return access >= EAccess.Owner ? Commands.FormatStaticResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotNotFound, botNames)) : null;
 		}
 
-		IList<string?> results = await Utilities.InParallel(bots.Select(bot => Task.Run(() => ResponseTradeLink(bot, Commands.GetProxyAccess(bot, access, steamID))))).ConfigureAwait(false);
+		IList<string?> results = await Utilities.InParallel(bots.Select(bot => ResponseTradeLink(bot, Commands.GetProxyAccess(bot, access, steamID))))).ConfigureAwait(false);
 
-		List<string> responses = [..results.Where(static result => !string.IsNullOrEmpty(result)).Select(static result => result!)];
+		List<string> responses = [.. results.Where(static result => !string.IsNullOrEmpty(result)).Select(static result => result!)];
 
 		return responses.Count > 0 ? string.Join(Environment.NewLine, responses) : null;
 	}

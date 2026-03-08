@@ -1,6 +1,7 @@
 {
   "release-type": "simple",
   "sequential-calls": true,
+  "include-v-in-tag": false,
   "pull-request-title-pattern": "chore: release ${version}",
   "packages": {
     ".": {
