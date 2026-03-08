@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/dm1tz/TradeLinkGetter/compare/v1.0.0...1.1.0) (2026-03-08)
+
+
+### Features
+
+* drop localization ([2670871](https://github.com/dm1tz/TradeLinkGetter/commit/26708714a3d11d46892f90fba75d77dea7756db4))
+
+
+### Bug Fixes
+
+* enable automatic updates ([1e102af](https://github.com/dm1tz/TradeLinkGetter/commit/1e102afa41aac0c33b9b273ccf9f100439a1db06))
+
 ## [1.0.0](https://github.com/dm1tz/TradeLinkGetter/compare/v0.3.0...v1.0.0) (2026-01-15)
 
 
