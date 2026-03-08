@@ -11,7 +11,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-using PluginLocale = TradeLinkGetter.Localization;
 using static ArchiSteamFarm.Steam.Integration.ArchiWebHandler;
 
 namespace TradeLinkGetter;
@@ -51,7 +50,7 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 		};
 	}
 
-	private async static Task<string?> ResponseTradeLink(Bot bot, EAccess access) {
+	private static async Task<string?> ResponseTradeLink(Bot bot, EAccess access) {
 		if (!bot.IsConnectedAndLoggedOn) {
 			return bot.Commands.FormatBotResponse(Strings.BotNotConnected);
 		}
@@ -68,7 +67,7 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 
 		uint partnerID = new SteamID(bot.SteamID).AccountID;
 
-		return bot.Commands.FormatBotResponse(PluginLocale.Strings.FormatBotTradeLink($"{TradeOfferURL}/?partner={partnerID}&token={tradeToken}"));
+		return bot.Commands.FormatBotResponse($"Trade URL: {TradeOfferURL}/?partner={partnerID}&token={tradeToken}");
 	}
 
 	private static async Task<string?> ResponseTradeLink(EAccess access, string botNames, ulong steamID = 0) {
@@ -84,7 +83,7 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 			return access >= EAccess.Owner ? Commands.FormatStaticResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotNotFound, botNames)) : null;
 		}
 
-		IList<string?> results = await Utilities.InParallel(bots.Select(bot => ResponseTradeLink(bot, Commands.GetProxyAccess(bot, access, steamID))))).ConfigureAwait(false);
+		IList<string?> results = await Utilities.InParallel(bots.Select(bot => ResponseTradeLink(bot, Commands.GetProxyAccess(bot, access, steamID)))).ConfigureAwait(false);
 
 		List<string> responses = [.. results.Where(static result => !string.IsNullOrEmpty(result)).Select(static result => result!)];
 
@@ -92,6 +91,10 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 	}
 
 	private static string? ResponseVersion(EAccess access) {
-		return access >= EAccess.FamilySharing ? Commands.FormatStaticResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotVersion, nameof(TradeLinkGetterPlugin), typeof(TradeLinkGetterPlugin).Assembly.GetName().Version)) : null;
+		if (access < EAccess.FamilySharing) {
+			return access > EAccess.None ? Commands.FormatStaticResponse(Strings.ErrorAccessDenied) : null;
+		}
+
+		return Commands.FormatStaticResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotVersion, nameof(TradeLinkGetterPlugin), typeof(TradeLinkGetterPlugin).Assembly.GetName().Version));
 	}
 }
