@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/dm1tz/TradeLinkGetter/compare/1.2.0...1.2.1) (2026-05-15)
+
+
+### Bug Fixes
+
+* typo ([3f35a9f](https://github.com/dm1tz/TradeLinkGetter/commit/3f35a9f982b877616c4783b8940502357963e748))
+
 ## [1.2.0](https://github.com/dm1tz/TradeLinkGetter/compare/1.1.0...1.2.0) (2026-05-15)
 
 
