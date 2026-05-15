@@ -45,8 +45,8 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 		return args[0].ToUpperInvariant() switch {
 			"TRADELINK" or "TL" when args.Length > 1 => await ResponseTradeLink(access, Utilities.GetArgsAsText(args, 1, ","), steamID).ConfigureAwait(false),
 			"TRADELINK" or "TL" => await ResponseTradeLink(bot, access).ConfigureAwait(false),
-			"TRADETOKEN" or "TT" when args.Length > 1 => await ResponseTradeLink(access, Utilities.GetArgsAsText(args, 1, ","), steamID).ConfigureAwait(false),
-			"TRADETOKEN" or "TT" => await ResponseTradeLink(bot, access).ConfigureAwait(false),
+			"TRADETOKEN" or "TT" when args.Length > 1 => await ResponseTradeToken(access, Utilities.GetArgsAsText(args, 1, ","), steamID).ConfigureAwait(false),
+			"TRADETOKEN" or "TT" => await ResponseTradeToken(bot, access).ConfigureAwait(false),
 			"TLVERSION" or "TLV" => ResponseVersion(access),
 			_ => null
 		};
