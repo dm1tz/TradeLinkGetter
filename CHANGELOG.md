@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/dm1tz/TradeLinkGetter/compare/1.1.0...1.2.0) (2026-05-15)
+
+
+### Features
+
+* **commands:** add `tradetoken` command ([271f765](https://github.com/dm1tz/TradeLinkGetter/commit/271f7659d9343fd4f8a6da3e82d585bab0634375))
+
 ## [1.1.0](https://github.com/dm1tz/TradeLinkGetter/compare/v1.0.0...1.1.0) (2026-03-08)
 
 
