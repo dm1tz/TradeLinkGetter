@@ -45,7 +45,7 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 		return args[0].ToUpperInvariant() switch {
 			"TRADELINK" or "TL" when args.Length > 1 => await ResponseTradeLink(access, Utilities.GetArgsAsText(args, 1, ","), steamID).ConfigureAwait(false),
 			"TRADELINK" or "TL" => await ResponseTradeLink(bot, access).ConfigureAwait(false),
-			"TRADELINKGETTER" or "TLG" => ResponseVersion(access),
+			"TLVERSION" or "TLV" => ResponseVersion(access),
 			_ => null
 		};
 	}

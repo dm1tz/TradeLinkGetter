@@ -6,4 +6,4 @@
 Command | Alias | Access | Description
 --- | ---| --- | ---
 `tradelink [Bots]` | `tl` | `FamilySharing`| Prints the trade link of given bots.
-`tradelinkgetter` | `tlg` | `FamilySharing`| Prints the actual plugin version.
+`tlversion` | `tlv` | `FamilySharing`| Prints the plugin version.
