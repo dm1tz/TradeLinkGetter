@@ -45,6 +45,8 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 		return args[0].ToUpperInvariant() switch {
 			"TRADELINK" or "TL" when args.Length > 1 => await ResponseTradeLink(access, Utilities.GetArgsAsText(args, 1, ","), steamID).ConfigureAwait(false),
 			"TRADELINK" or "TL" => await ResponseTradeLink(bot, access).ConfigureAwait(false),
+			"TRADETOKEN" or "TT" when args.Length > 1 => await ResponseTradeLink(access, Utilities.GetArgsAsText(args, 1, ","), steamID).ConfigureAwait(false),
+			"TRADETOKEN" or "TT" => await ResponseTradeLink(bot, access).ConfigureAwait(false),
 			"TLVERSION" or "TLV" => ResponseVersion(access),
 			_ => null
 		};
@@ -84,6 +86,44 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 		}
 
 		IList<string?> results = await Utilities.InParallel(bots.Select(bot => ResponseTradeLink(bot, Commands.GetProxyAccess(bot, access, steamID)))).ConfigureAwait(false);
+
+		List<string> responses = [.. results.Where(static result => !string.IsNullOrEmpty(result)).Select(static result => result!)];
+
+		return responses.Count > 0 ? string.Join(Environment.NewLine, responses) : null;
+	}
+
+	private static async Task<string?> ResponseTradeToken(Bot bot, EAccess access) {
+		if (!bot.IsConnectedAndLoggedOn) {
+			return bot.Commands.FormatBotResponse(Strings.BotNotConnected);
+		}
+
+		if (access < EAccess.FamilySharing) {
+			return access > EAccess.None ? bot.Commands.FormatBotResponse(Strings.ErrorAccessDenied) : null;
+		}
+
+		string? tradeToken = await bot.ArchiHandler.GetTradeToken().ConfigureAwait(false);
+
+		if (string.IsNullOrEmpty(tradeToken)) {
+			return bot.Commands.FormatBotResponse(string.Format(CultureInfo.CurrentCulture, Strings.ErrorIsEmpty, nameof(tradeToken)));
+		}
+
+		return bot.Commands.FormatBotResponse($"Trade token: {tradeToken}");
+	}
+
+	private static async Task<string?> ResponseTradeToken(EAccess access, string botNames, ulong steamID = 0) {
+		ArgumentException.ThrowIfNullOrEmpty(botNames);
+
+		if ((steamID != 0) && !new SteamID(steamID).IsIndividualAccount) {
+			throw new ArgumentOutOfRangeException(nameof(steamID));
+		}
+
+		HashSet<Bot>? bots = Bot.GetBots(botNames);
+
+		if ((bots == null) || (bots.Count == 0)) {
+			return access >= EAccess.Owner ? Commands.FormatStaticResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotNotFound, botNames)) : null;
+		}
+
+		IList<string?> results = await Utilities.InParallel(bots.Select(bot => ResponseTradeToken(bot, Commands.GetProxyAccess(bot, access, steamID)))).ConfigureAwait(false);
 
 		List<string> responses = [.. results.Where(static result => !string.IsNullOrEmpty(result)).Select(static result => result!)];
 
