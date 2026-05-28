@@ -69,7 +69,7 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 
 		uint partnerID = new SteamID(bot.SteamID).AccountID;
 
-		return bot.Commands.FormatBotResponse($"Trade URL: {TradeOfferURL}/?partner={partnerID}&token={tradeToken}");
+		return bot.Commands.FormatBotResponse($"Trade link: {TradeOfferURL}/?partner={partnerID}&token={tradeToken}");
 	}
 
 	private static async Task<string?> ResponseTradeLink(EAccess access, string botNames, ulong steamID = 0) {
