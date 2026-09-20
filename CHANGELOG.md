@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/dm1tz/TradeLinkGetter/compare/1.2.1...1.2.2) (2026-09-20)
+
+
+### Bug Fixes
+
+* **commands:** check access before bot state ([#92](https://github.com/dm1tz/TradeLinkGetter/issues/92)) ([4488223](https://github.com/dm1tz/TradeLinkGetter/commit/44882235efb79dc0e8d38f54759404292316060e))
+
 ## [1.2.1](https://github.com/dm1tz/TradeLinkGetter/compare/1.2.0...1.2.1) (2026-05-15)
 
 
