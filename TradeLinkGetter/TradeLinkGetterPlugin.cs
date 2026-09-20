@@ -53,12 +53,12 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 	}
 
 	private static async Task<string?> ResponseTradeLink(Bot bot, EAccess access) {
-		if (!bot.IsConnectedAndLoggedOn) {
-			return bot.Commands.FormatBotResponse(Strings.BotNotConnected);
-		}
-
 		if (access < EAccess.FamilySharing) {
 			return access > EAccess.None ? bot.Commands.FormatBotResponse(Strings.ErrorAccessDenied) : null;
+		}
+
+		if (!bot.IsConnectedAndLoggedOn) {
+			return bot.Commands.FormatBotResponse(Strings.BotNotConnected);
 		}
 
 		string? tradeToken = await bot.ArchiHandler.GetTradeToken().ConfigureAwait(false);
@@ -93,12 +93,12 @@ internal sealed class TradeLinkGetterPlugin : IBotCommand2, IGitHubPluginUpdates
 	}
 
 	private static async Task<string?> ResponseTradeToken(Bot bot, EAccess access) {
-		if (!bot.IsConnectedAndLoggedOn) {
-			return bot.Commands.FormatBotResponse(Strings.BotNotConnected);
-		}
-
 		if (access < EAccess.FamilySharing) {
 			return access > EAccess.None ? bot.Commands.FormatBotResponse(Strings.ErrorAccessDenied) : null;
+		}
+
+		if (!bot.IsConnectedAndLoggedOn) {
+			return bot.Commands.FormatBotResponse(Strings.BotNotConnected);
 		}
 
 		string? tradeToken = await bot.ArchiHandler.GetTradeToken().ConfigureAwait(false);
